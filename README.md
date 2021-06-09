@@ -1,1 +1,1 @@
-# academind-login-all
+# academind-login-app
