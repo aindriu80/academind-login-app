@@ -44,24 +44,26 @@ const Login = (props) => {
 
   useEffect(() => {
     console.log('Effect Running')
+
     return () => {
       console.log('Effect cleanupp')
     }
   }, [])
 
-  // useEffect(() => {
-  //   const identifier = setTimeout(() => {
-  //     console.log('checking form validity')
-  //     setFormIsValid(
-  //       enteredEmail.includes('@') && enteredPassword.trim().length > 6
-  //     )
-  //   }, 500)
+  const { isValid: emailIsValid } = emailState
+  const { isValid: passwordIsValid } = passwordState
 
-  //   return () => {
-  //     console.log('Cleanup')
-  //     clearTimeout(identifier)
-  //   }
-  // }, [enteredEmail, enteredPassword])
+  useEffect(() => {
+    const identifier = setTimeout(() => {
+      console.log('checking form validity')
+      setFormIsValid(emailIsValid && passwordIsValid)
+    }, 500)
+
+    return () => {
+      console.log('Cleanup')
+      clearTimeout(identifier)
+    }
+  }, [emailIsValid, passwordIsValid])
 
   const emailChangeHandler = (event) => {
     dispatchEmail({ type: 'USER_INPUT', val: event.target.value })
